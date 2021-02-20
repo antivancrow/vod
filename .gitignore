@@ -1,0 +1,7 @@
+*.sw[po]
+*.idea
+*.retry
+*.log
+.cache
+__pycache__/
+.pytest_cache
