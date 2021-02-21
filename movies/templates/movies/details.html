@@ -30,14 +30,14 @@
             <div class="card-body">
                 <h6 class="card-subtitle mb-2 text-muted">Director: {{ movie.director }}</h6>
                 <h6 class="card-subtitle mb-2 text-muted">Year: {{ movie.year }}</h6>
-                {% if movie.is_rated %}
+                {% if movie.avg_rate %}
                     <h6 class="card-subtitle mb-2 text-muted">Rate: {{ movie.avg_rate }}</h6>
                 {% else %}
                     <h6 class="card-subtitle mb-2 text-muted">Not rated yet</h6>
                 {% endif %}
                 <a href="{% url 'watch' movie.id %}" class="btn btn-primary">Watch</a>
                 <a href="{% url 'rate' movie.id %}" class="btn btn-secondary">Rate</a>
-                {% if movie.is_bookmarked %}
+                {% if is_bookmarked %}
                     <a href="{% url 'remove_from_list' movie.id %}" class="btn btn-danger">Remove from list</a>
                 {% else %}
                     <a href="{% url 'add_to_list' movie.id %}" class="btn btn-info">Add to list</a>

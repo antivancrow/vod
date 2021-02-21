@@ -1,10 +1,11 @@
-from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from datetime import datetime, timedelta
 
 from .models import Movie, Order
+
+import random
 
 
 # Create your views here.
@@ -72,22 +73,27 @@ def reset_password(request):
 
 @login_required(login_url='/login')
 def rate(request, movie_id):
+    new_rate = request.POST.get('rate')
+    if not new_rate:
+        new_rate = random.randint(3, 6)
     movie = Movie.objects.get(pk=movie_id)
-    movie.rate(request.user, rate)
+    movie.add_rate(request.user, new_rate)
     return redirect(to=f'/{movie.id}')
 
 
 @login_required(login_url='/login')
 def add_to_list(request, movie_id):
     movie = Movie.objects.get(pk=movie_id)
-    movie.remove_bookmark(request.user)
+    movie.add_bookmark(request.user)
+    movie.save()
     return redirect(to=f'/{movie.id}')
 
 
 @login_required(login_url='/login')
 def remove_from_list(request, movie_id):
     movie = Movie.objects.get(pk=movie_id)
-    movie.add_bookmark(request.user)
+    movie.remove_bookmark(request.user)
+    movie.save()
     return redirect(to=f'/{movie.id}')
 
 

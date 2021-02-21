@@ -33,26 +33,26 @@ class Movie(models.Model):
     description = models.TextField(null=True)
 
     def add_bookmark(self, user):
-        bookmark = Bookmarks.objects.get_or_create(movie=self, user=user)[0]
+        bookmark = Bookmarks.objects.get_or_create(movie_id=self.id, user_id=user.id)[0]
         bookmark.save()
         return bookmark
 
     def remove_bookmark(self, user):
         try:
-            bookmark = Bookmarks.objects.get(movie=self, user=user)[0]
+            bookmark = Bookmarks.objects.get(movie_id=self.id, user_id=user.id)[0]
             bookmark.delete()
         except Exception as e:
             return None
 
     def is_bookmarked(self, user):
         try:
-            Bookmarks.objects.get(movie=self, user=user)[0]
+            Bookmarks.objects.get(movie_id=self.id, user_id=user.id)[0]
             return True
         except Exception as e:
             return False
 
-    def rate(self, user, rate):
-        rating = Ratings.objects.get_or_create(movie=self, user=user)[0]
+    def add_rate(self, user, rate):
+        rating = Ratings.objects.get_or_create(movie_id=self.id, user_id=user.id)[0]
         rating.rate = rate
         rating.save()
         return rating
