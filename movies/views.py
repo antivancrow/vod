@@ -27,6 +27,8 @@ def details(request, movie_id):
         'movies/details.html',
         {
             'movie': movie,
+            'is_rated': movie.is_rated(request.user),
+            'is_bookmarked': movie.is_bookmarked(request.user),
             'user': {
                 'first_name': request.user.first_name,
                 'last_name': request.user.last_name,
@@ -63,6 +65,8 @@ def login_view(request):
 
 
 def reset_password(request):
+    if request.POST.get('email'):
+        return render(request, 'movies/password_reseted.html', {'email': request.POST.get('email')})
     return render(request, 'movies/reset_password.html')
 
 
