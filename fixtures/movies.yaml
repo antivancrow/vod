@@ -1,0 +1,79 @@
+---
+movies:
+  - title: Avatar
+    year: 2009
+    category:
+      - Sci-Fi
+    poster: posters/avatar.jpg
+    director:
+      first_name: James
+      last_name: Cameron
+      birth: 1954-08-16
+  - title: Once Upon a Time ... in Hollywood
+    year: 2019
+    category:
+      - Drama
+      - Criminal
+    poster: posters/in-hollywood.jpg
+    director:
+      first_name: Quentin
+      last_name: Tarantino
+      birth: 1963-03-27
+  - title: V for Vendetta
+    year: 2005
+    category:
+      - Thriller
+      - Sci-Fi
+    poster: posters/v-for-vendetta.jpg
+    director:
+      first_name: James
+      last_name: McTeigue
+      birth: 1967-12-29
+  - title: Joker
+    year: 2019
+    category:
+      - Criminal
+      - Drama
+    poster: posters/joker.jpg
+    director:
+      first_name: Todd
+      last_name: Phillips
+      birth: 1970-12-20
+  - title: Green Book
+    year: 2018
+    category:
+      - Drama
+      - Comedy
+    poster: posters/green-book.jpg
+    director:
+      first_name: Peter
+      last_name: Farrelly
+      birth: 1956-12-17
+  - title: The Skin I Live In
+    year: 2011
+    category:
+      - Thriller
+      - Drama
+    poster: posters/skin.jpg
+    director:
+      first_name: Pedro
+      last_name: Almodovar
+      birth: 1949-09-25
+  - title: The Mask of Zorro
+    year: 1998
+    category:
+      - Action
+      - Adventure
+    poster: posters/zorro.jpg
+    director:
+      first_name: Martin
+      last_name: Campbell
+      birth: 1943-10-24
+  - title: A Streetcar Named Desire
+    year: 1951
+    category: Drama
+    poster: posters/streetcar.jpg
+    director:
+      first_name: Elia
+      last_name: Kazan
+      birth: 1909-09-07
