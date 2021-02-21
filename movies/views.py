@@ -69,15 +69,24 @@ def reset_password(request):
     return render(request, 'movies/reset_password.html')
 
 
-def rate(request):
+@login_required(login_url='/login')
+def rate(request, movie_id):
+    movie = Movie.objects.get(pk=movie_id)
+    movie.rate(request.user, rate)
     return render(request, 'movies/placeholder.html')
 
 
-def add_to_list(request):
+@login_required(login_url='/login')
+def add_to_list(request, movie_id):
+    movie = Movie.objects.get(pk=movie_id)
+    movie.remove_bookmark(request.user)
     return render(request, 'movies/placeholder.html')
 
 
-def remove_from_list(request):
+@login_required(login_url='/login')
+def remove_from_list(request, movie_id):
+    movie = Movie.objects.get(pk=movie_id)
+    movie.add_bookmark(request.user)
     return render(request, 'movies/placeholder.html')
 
 
@@ -88,5 +97,6 @@ def orders(request):
     return render(request, 'movies/orders.html', {'orders': orders})
 
 
+@login_required(login_url='/login')
 def profile(request):
-    return render(request, 'movies/placeholder.html')
+    return render(request, 'movies/placeholder.html', {'user': request.user})

@@ -29,6 +29,18 @@ class Movie(models.Model):
     description = models.TextField(null=True)
     create_date = models.DateField()
 
+    def add_bookmark(self, user):
+        pass
+
+    def remove_bookmark(self, user):
+        pass
+
+    def rate(self, user, rate):
+        pass
+
+    def avg_rate(self):
+        return 4.33;
+
     def __str__(self):
         return self.title
 
@@ -56,3 +68,6 @@ class Ratings(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     rate = models.PositiveSmallIntegerField()
     date = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f'{self.movie} ({self.user}, {self.ratio})'
