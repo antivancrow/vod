@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 class Director(models.Model):
     first_name = models.CharField(max_length=60)
     last_name = models.CharField(max_length=160)
-    birth = models.DateField()
+    birth = models.DateField(null=True)
 
     def __str__(self):
         return f'{self.first_name} {self.last_name}'
@@ -15,7 +15,7 @@ class Director(models.Model):
 
 class Category(models.Model):
     name = models.CharField(max_length=255)
-    description = models.TextField()
+    description = models.TextField(null=True)
 
     def __str__(self):
         return self.name
@@ -26,12 +26,11 @@ class Category(models.Model):
 
 class Movie(models.Model):
     title = models.CharField(max_length=255)
-    director = models.ForeignKey(Director, on_delete=models.DO_NOTHING)
+    director = models.ForeignKey(Director, on_delete=models.DO_NOTHING, null=True)
     category = models.ForeignKey(Category, on_delete=models.DO_NOTHING, null=True)
-    length = models.FloatField()
+    year = models.PositiveSmallIntegerField(null=True)
     poster = models.ImageField(upload_to='posters/', null=True)
     description = models.TextField(null=True)
-    create_date = models.DateField()
 
     def add_bookmark(self, user):
         bookmark = Bookmarks.objects.get_or_create(movie=self, user=user)[0]
