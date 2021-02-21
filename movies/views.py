@@ -36,7 +36,6 @@ def details(request, movie_id):
 
 @login_required(login_url='/login')
 def watch(request, movie_id):
-    print(request.user.id, movie_id)
     order = Order.objects.filter(
         user_id=request.user.id,
         movie_id=movie_id,
@@ -55,8 +54,6 @@ def login_view(request):
     username = request.POST.get('username')
     password = request.POST.get('password')
     user = authenticate(request, username=username, password=password)
-
-    print(user, username, password)
 
     if user is not None:
         login(request, user)
