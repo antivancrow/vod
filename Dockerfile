@@ -1,4 +1,4 @@
-FROM python:3.8-slim-buster
+FROM python:3.6-slim-buster
 MAINTAINER Ewelina Dmowska <e.dmowskaa@gmail.com>
 
 ENV LANG C.UTF-8
@@ -18,4 +18,4 @@ RUN pip install -r requirements.txt
 
 COPY . .
 
-CMD /usr/local/bin/python3 manage.py runserver
+CMD /usr/local/bin/python3 manage.py runserver 0.0.0.0:8000
