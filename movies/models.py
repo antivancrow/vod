@@ -34,25 +34,39 @@ class Movie(models.Model):
     create_date = models.DateField()
 
     def add_bookmark(self, user):
-        bookmark = Bookmarks.objects.get_or_create(movie=self, user=user)
+        bookmark = Bookmarks.objects.get_or_create(movie=self, user=user)[0]
         bookmark.save()
         return bookmark
 
     def remove_bookmark(self, user):
         try:
-            bookmark = Bookmarks.objects.get(movie=self, user=user)
+            bookmark = Bookmarks.objects.get(movie=self, user=user)[0]
             bookmark.delete()
         except Exception as e:
             return None
 
+    def is_bookmarked(self, user):
+        try:
+            Bookmarks.objects.get(movie=self, user=user)[0]
+            return True
+        except Exception as e:
+            return False
+
     def rate(self, user, rate):
-        rating = Ratings.objects.get_or_create(movie=self, user=user)
+        rating = Ratings.objects.get_or_create(movie=self, user=user)[0]
         rating.rate = rate
         rating.save()
         return rating
 
+    def is_rated(self, user):
+        try:
+            Ratings.objects.get(movie=self, user=user)[0]
+            return True
+        except Exception as e:
+            return False
+
     def avg_rate(self):
-        return self.ratings_set.all().aggregate(Avg('rate'));
+        return self.ratings_set.all().aggregate(Avg('rate'))['rate__avg']
 
     def __str__(self):
         return self.title
@@ -79,8 +93,8 @@ class Bookmarks(models.Model):
 class Ratings(models.Model):
     movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    rate = models.PositiveSmallIntegerField()
+    rate = models.PositiveSmallIntegerField(null=True)
     date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f'{self.movie} ({self.user}, {self.ratio})'
+        return f'{self.movie} ({self.user}, {self.rate})'
