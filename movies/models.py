@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import Avg
 from django.contrib.auth.models import User
 
 
@@ -33,16 +34,25 @@ class Movie(models.Model):
     create_date = models.DateField()
 
     def add_bookmark(self, user):
-        pass
+        bookmark = Bookmarks.objects.get_or_create(movie=self, user=user)
+        bookmark.save()
+        return bookmark
 
     def remove_bookmark(self, user):
-        pass
+        try:
+            bookmark = Bookmarks.objects.get(movie=self, user=user)
+            bookmark.delete()
+        except Exception as e:
+            return None
 
     def rate(self, user, rate):
-        pass
+        rating = Ratings.objects.get_or_create(movie=self, user=user)
+        rating.rate = rate
+        rating.save()
+        return rating
 
     def avg_rate(self):
-        return 4.33;
+        return self.ratings_set.all().aggregate(Avg('rate'));
 
     def __str__(self):
         return self.title

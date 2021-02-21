@@ -70,21 +70,21 @@ def reset_password(request):
 def rate(request, movie_id):
     movie = Movie.objects.get(pk=movie_id)
     movie.rate(request.user, rate)
-    return render(request, 'movies/placeholder.html')
+    return redirect(to=f'/{movie.id}')
 
 
 @login_required(login_url='/login')
 def add_to_list(request, movie_id):
     movie = Movie.objects.get(pk=movie_id)
     movie.remove_bookmark(request.user)
-    return render(request, 'movies/placeholder.html')
+    return redirect(to=f'/{movie.id}')
 
 
 @login_required(login_url='/login')
 def remove_from_list(request, movie_id):
     movie = Movie.objects.get(pk=movie_id)
     movie.add_bookmark(request.user)
-    return render(request, 'movies/placeholder.html')
+    return redirect(to=f'/{movie.id}')
 
 
 @login_required(login_url='/login')
